@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script defer src="static/js/main.js" type="module"></script>
+</head>
+
+<body>
+    <button onclick="clearOutput()">CLEAR</button>
+    <button onclick="interruptExecution()">STOP</button>
+    <br/><br/>
+
+    WORKING<br/>
+    <button onclick="runInterruptTest('nosleep')">GO No sleep</button><br/>
+    <button onclick="runInterruptTest('withprint')">GO With print</button>
+    <br/><br/>
+
+    NOT WORKING<br/>
+    <button onclick="runInterruptTest('withsleep')">GO With sleep</button>
+    <br/><br/>
+
+
+    OUTPUT (also on js console)<br/>
+    <div id="testoutput"></div>
+</body>
+</html>

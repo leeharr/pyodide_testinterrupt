@@ -1,0 +1,50 @@
+Minimal example to test interrupting execution of code using pyodide.
+
+
+Problem occurs only in Chrome, not in Firefox.
+Chrome 140.0.7339.207
+Firefox 140.3.0esr
+
+
+Trouble is occurring when running code using PyodideConsole
+and trying to interrupt code that uses time.sleep
+
+Sometimes execution is interrupted as expected. (Maybe 1 in 5 chance).
+
+
+
+Most often execution continues uninterrupted and this is shown on STDERR:
+(only when NOT using the filename=... parameter to runsource, otherwise it passes silently)
+
+REQUESTING Keyboard Interrupt
+Exception ignored in:
+._remove at 0xbf3f88>
+Traceback (most recent call last):
+File "/lib/python313.zip/_weakrefset.py", line 39, in _remove
+KeyboardInterrupt
+:
+
+
+This seems to be because the sleep is running asynchronously
+and cannot be interrupted.
+
+When this happens, it's possible to keep REQUESTING an interrupt.
+Eventually it will stop and give this on STDERR:
+
+REQUESTING Keyboard Interrupt
+Traceback (most recent call last):
+File "", line 123, in __subclasscheck__
+TypeError: issubclass() arg 1 must be a class
+/lib/python313.zip/pyodide/webloop.py:663: RuntimeWarning: coroutine 'sleep' was never awaited
+run_sync(sleep(t))
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+Traceback (most recent call last):
+File "", line 123, in __subclasscheck__
+TypeError: issubclass() arg 1 must be a class
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+File "", line 3, in
+File "/lib/python313.zip/pyodide/webloop.py", line 663, in _sleep
+run_sync(sleep(t))
+~~~~~~~~^^^^^^^^^^
+pyodide.ffi.ConversionError: Conversion from python to javascript failed
