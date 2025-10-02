@@ -182,6 +182,7 @@ while True:
     time.sleep(0.001)
     if not i%1000:
         js.console.log(i)
+        print(i)
 `;
     do_run_code_page(code, 'filenameB');
 }
@@ -203,6 +204,30 @@ while True:
     do_run_code_page(code, 'filenameC');
 }
 
+let run_test_timetime = function(){
+    let code = `
+import js
+import pyodide
+import time
+
+print('Starting time test');
+print('pyodide version '+pyodide.__version__);
+
+i = 0
+t0 = time.time()
+while True:
+    i += 1
+    if not i%1000000:
+        print('%s at %.1f' % (i, dt))
+    t = time.time()
+    dt = t - t0
+    if dt > 10:
+        break
+print('Elapsed time %.1f' % dt)
+`;
+    do_run_code_page(code, 'filenameD');
+}
+
 self.addEventListener("message", async (msg) => {
     switch(msg.data.cmd){
         case "setInterruptBuffer":
@@ -219,6 +244,10 @@ self.addEventListener("message", async (msg) => {
 
         case "withprint":
             run_test_withprint();
+            break;
+
+        case "timetime":
+            run_test_timetime();
             break;
     }
 });
