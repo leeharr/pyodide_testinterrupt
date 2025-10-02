@@ -1,5 +1,8 @@
 Minimal example to test interrupting execution of code using pyodide.
 
+Tracked in pyodide Issue #5927
+https://github.com/pyodide/pyodide/issues/5927
+
 
 Problem occurs only in Chrome, not in Firefox.
 Chrome 140.0.7339.207
