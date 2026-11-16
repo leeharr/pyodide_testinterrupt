@@ -19,8 +19,8 @@ let pmchk = function(m){
 
 async function main() {
     console.log('Loading...');
-    const { loadPyodide } = await import("https://cdn.jsdelivr.net/pyodide/v0.28.3/full/pyodide.mjs");
-    pyodide = await loadPyodide({indexURL: "https://cdn.jsdelivr.net/pyodide/v0.28.3/full/"});
+    const { loadPyodide } = await import("https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.mjs");
+    pyodide = await loadPyodide({indexURL: "https://cdn.jsdelivr.net/pyodide/v314.0.8/full/"});
 
     pyodide.runPython(
         `
@@ -39,6 +39,15 @@ async function main() {
 
         def clear_console():
             pyconsole.buffer = []
+
+
+        ## FAILS WHEN THIS PART IS COMMENTED OUT ##
+        ## interpreter crashes and needs to be reloaded ##
+
+        #def cannot():
+        #    return False
+
+        #pyodide.webloop.can_run_sync = cannot
     `
     );
 
